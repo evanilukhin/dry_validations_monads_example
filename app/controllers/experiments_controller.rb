@@ -1,4 +1,4 @@
-class ExperimentsController
+class ExperimentsController < ApplicationController
   def create
     result = ConductExperiment.call(experiment_params)
 
