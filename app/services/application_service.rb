@@ -5,17 +5,16 @@ class ApplicationService
   end
 
   def call
-    validation_result = validate_params
-    if validation_result[:success]
+    validation_result = validator.new.call(@params) unless validator.nil?
+    if validation_result.success?
       execute
     else
-      validation_result
+      { success: false, errors: validation_result.errors.to_h }
     end
   end
 
-  # if validate_params doesn't redefined in a child, skip it by defining the successful result
-  def validate_params
-    { success: true }
+  def validator
+    nil
   end
 
   def self.call(*params, &block)

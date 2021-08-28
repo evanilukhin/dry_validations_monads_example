@@ -1,6 +1,6 @@
 class ExperimentsController < ApplicationController
   def create
-    result = ConductExperiment.call(experiment_params)
+    result = ConductExperiment.call(experiment_params.to_h)
 
     if result[:success]
       render json: result[:result]
