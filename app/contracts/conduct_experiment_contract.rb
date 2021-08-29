@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ConductExperimentContract < Dry::Validation::Contract
-  params do
+  schema do
     required(:duration).value(:integer) # in seconds
     optional(:title).value(:string)
     optional(:power_consumption).value(:integer) # in MW
@@ -12,6 +12,6 @@ class ConductExperimentContract < Dry::Validation::Contract
   end
 
   rule(:power_consumption) do
-    key.failure('Power consumption should be positive') if value && value < 1
+    key.failure('should be positive') if value && !value.positive?
   end
 end

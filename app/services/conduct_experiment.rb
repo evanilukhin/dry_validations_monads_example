@@ -1,5 +1,4 @@
 class ConductExperiment < ApplicationService
-
   def initialize(params)
     super
     @params = params

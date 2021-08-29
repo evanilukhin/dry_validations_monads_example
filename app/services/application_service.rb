@@ -6,7 +6,7 @@ class ApplicationService
 
   def call
     validation_result = validator.new.call(@params) unless validator.nil?
-    if validation_result.success?
+    if validator.nil? || validation_result.success?
       execute
     else
       { success: false, errors: validation_result.errors.to_h }
