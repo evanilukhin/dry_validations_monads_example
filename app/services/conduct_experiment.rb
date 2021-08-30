@@ -10,9 +10,9 @@ class ConductExperiment < ApplicationService
 
   def execute
     if Random.rand > 0.3
-      { success: true, result: 'Success!' }
+      Success('Success!')
     else
-      { success: false, errors: ['Definitely not success.'] }
+      Failure('Definitely not success.')
     end
   end
 end

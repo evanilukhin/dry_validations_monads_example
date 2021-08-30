@@ -1,16 +1,14 @@
 class ApplicationService
+  include Dry::Monads[:result, :do]
+
   def initialize(*params, &block)
     @params = params
     @block = block
   end
 
   def call
-    validation_result = validator.new.call(@params) unless validator.nil?
-    if validator.nil? || validation_result.success?
-      execute
-    else
-      { success: false, errors: validation_result.errors.to_h }
-    end
+    yield validator.new.call(@params) unless validator.nil?
+    execute
   end
 
   def validator

@@ -1,11 +1,17 @@
 class ExperimentsController < ApplicationController
   def create
     result = ConductExperiment.call(experiment_params.to_h)
-
-    if result[:success]
-      render json: result[:result]
+    if result.success?
+      render json: result.value!
     else
-      render json: result[:errors], status: :bad_request
+      error_object =
+        if result.failure.is_a?(Dry::Validation::Result)
+          result.failure.errors(full: true).to_h
+        else
+          result.failure
+        end
+
+      render(json: error_object, status: :bad_request)
     end
   end
 
