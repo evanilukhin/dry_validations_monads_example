@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ConductExperimentContract < Dry::Validation::Contract
-  Dry::Validation.load_extensions(:monads)
-
   schema do
     required(:duration).value(:integer) # in seconds
     optional(:title).value(:string)

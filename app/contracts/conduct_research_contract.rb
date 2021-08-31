@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ConductResearchContract < Dry::Validation::Contract
-  Dry::Validation.load_extensions(:monads)
-
   MAX_POWER_CONSUMPTION = 30
 
   schema do
